@@ -51,3 +51,7 @@ as `message.intents`, and will match the results of [this Wit.ai API call](https
 Using the Wit hears middleware tells Botkit to look for Wit.ai intents
 information, and match using this information instead of the built in
 pattern matching function.
+
+Unless you want to directly access the information returned by wit,
+you can use this transparently by enabling bot the `receive` and `hears`
+middlewares.
