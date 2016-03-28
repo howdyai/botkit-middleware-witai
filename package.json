@@ -1,0 +1,31 @@
+{
+  "name": "botkit-middleware-witai",
+  "version": "0.0.1",
+  "description": "A middleware for using Wit.ai in a Botkit-powered bot",
+  "main": "src/botkit-middleware-witai.js",
+  "scripts": {
+    "start": "node src/botkit-middleware-witai.js",
+    "pretest": "jscs ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howdyai/botkit-middleware-witai.git"
+  },
+  "keywords": [
+    "botkit",
+    "wit.ai",
+    "slack"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/howdyai/botkit-middleware-witai/issues"
+  },
+  "homepage": "https://github.com/howdyai/botkit-middleware-witai#readme",
+  "dependencies": {
+    "node-wit": "^2.0.0"
+  },
+  "devDependencies": {
+    "jscs": "^2.8.0"
+  }
+}
