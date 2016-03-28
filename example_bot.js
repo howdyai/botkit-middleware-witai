@@ -67,7 +67,7 @@ if (!process.env.wit) {
 }
 
 var Botkit = require('botkit');
-var wit = require('botkit-middleware-witai')({
+var wit = require('./src/botkit-middleware-witai')({
     token: process.env.wit,
 });
 
