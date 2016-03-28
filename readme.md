@@ -20,7 +20,7 @@ need this to use Wit's API.
 Add botkit-middleware-witai as a dependency to your Botkit bot!
 
 ```
-npm install --save botkit-middleware-witai`
+npm install --save botkit-middleware-witai
 ```
 
 Enable the middleware:
