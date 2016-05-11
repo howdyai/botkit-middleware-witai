@@ -1,8 +1,4 @@
-var Logger = require('node-wit').Logger;
-var levels = require('node-wit').logLevels;
 var Wit = require('node-wit').Wit;
-
-var logger = new Logger(levels.DEBUG);
 
 // not used at the moment
 var actions = {
@@ -28,7 +24,7 @@ module.exports = function(config) {
         config.minimum_confidence = 0.5;
     }
 
-    var client = new Wit(config.token, actions, logger);
+    var client = new Wit(config.token, actions);
 
     var middleware = {};
 
