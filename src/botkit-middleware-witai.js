@@ -1,11 +1,11 @@
-const Logger = require('node-wit').Logger;
-const levels = require('node-wit').logLevels;
-const Wit = require('node-wit').Wit;
+var Logger = require('node-wit').Logger;
+var levels = require('node-wit').logLevels;
+var Wit = require('node-wit').Wit;
 
-const logger = new Logger(levels.DEBUG);
+var logger = new Logger(levels.DEBUG);
 
 // not used at the moment
-const actions = {
+var actions = {
     say(sessionId, context, message, cb) {
         console.log(message);
         cb();
@@ -28,9 +28,9 @@ module.exports = function(config) {
         config.minimum_confidence = 0.5;
     }
 
-    const client = new Wit(config.token, actions, logger);
+    var client = new Wit(config.token, actions, logger);
 
-    const middleware = {};
+    var middleware = {};
 
     middleware.receive = function(bot, message, next) {
         if (message.text) {
