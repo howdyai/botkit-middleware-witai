@@ -1,9 +1,22 @@
-'use strict';
 const Logger = require('node-wit').Logger;
 const levels = require('node-wit').logLevels;
 const Wit = require('node-wit').Wit;
 
 const logger = new Logger(levels.DEBUG);
+
+// not used at the moment
+const actions = {
+    say(sessionId, context, message, cb) {
+        console.log(message);
+        cb();
+    },
+    merge(sessionId, context, entities, message, cb) {
+        cb(context);
+    },
+    error(sessionId, context, error) {
+        console.log(error.message);
+    }
+};
 
 module.exports = function(config) {
 
@@ -25,7 +38,7 @@ module.exports = function(config) {
                 if (error) {
                     next(error);
                 } else {
-                    // no support for multiple outcomes, is it needed for this?
+                    // not sure how to handle multiple outcomes right now
                     message.entities = data.outcomes[0].entities;
                     next();
                 }
@@ -47,7 +60,5 @@ module.exports = function(config) {
         return false;
     };
 
-
     return middleware;
-
 };
