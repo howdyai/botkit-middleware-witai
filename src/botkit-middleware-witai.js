@@ -6,14 +6,14 @@ var logger = new Logger(levels.DEBUG);
 
 // not used at the moment
 var actions = {
-    say(sessionId, context, message, cb) {
+    say: function say(sessionId, context, message, cb) {
         console.log(message);
         cb();
     },
-    merge(sessionId, context, entities, message, cb) {
+    merge: function merge(sessionId, context, entities, message, cb) {
         cb(context);
     },
-    error(sessionId, context, error) {
+    error: function error(sessionId, context, error) {
         console.log(error.message);
     }
 };
