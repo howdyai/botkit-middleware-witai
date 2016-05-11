@@ -6,14 +6,14 @@ var logger = new Logger(levels.DEBUG);
 
 // not used at the moment
 var actions = {
-    say: function say(sessionId, context, message, cb) {
+    say: function(sessionId, context, message, cb) {
         console.log(message);
         cb();
     },
-    merge: function merge(sessionId, context, entities, message, cb) {
+    merge: function(sessionId, context, entities, message, cb) {
         cb(context);
     },
-    error: function error(sessionId, context, error) {
+    error: function(sessionId, context, error) {
         console.log(error.message);
     }
 };
@@ -34,7 +34,7 @@ module.exports = function(config) {
 
     middleware.receive = function(bot, message, next) {
         if (message.text) {
-            client.message(message.text, (error, data) => {
+            client.message(message.text, function(error, data) {
                 if (error) {
                     next(error);
                 } else {
