@@ -41,6 +41,8 @@ module.exports = function(config) {
                     next();
                 }
             });
+        } else {
+            next();
         }
     };
 
