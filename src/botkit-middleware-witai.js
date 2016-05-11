@@ -29,7 +29,9 @@ module.exports = function(config) {
     var middleware = {};
 
     middleware.receive = function(bot, message, next) {
-        if (message.text) {
+        // Only parse messages of type text and mention the bot.
+        // Otherwise it would send every single message to wit (probably don't want that).
+        if (message.text && message.text.indexOf(bot.identity.id) > -1) {
             client.message(message.text, function(error, data) {
                 if (error) {
                     next(error);
