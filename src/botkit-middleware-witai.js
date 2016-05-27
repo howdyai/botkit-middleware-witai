@@ -36,8 +36,7 @@ module.exports = function(config) {
                 if (error) {
                     next(error);
                 } else {
-                    // not sure how to handle multiple outcomes right now
-                    message.entities = data.outcomes[0].entities;
+                    message.entities = data.entities;
                     next();
                 }
             });
@@ -50,7 +49,8 @@ module.exports = function(config) {
         if (message.entities && message.entities.intent) {
             for (var i = 0; i < message.entities.intent.length; i++) {
                 for (var t = 0; t < tests.length; t++) {
-                    if (message.entities.intent[i].value == tests[t]) {
+                    if (message.entities.intent[i].value == tests[t] &&
+                        message.entities.intent[i].confidence >= config.minimum_confidence) {
                         return true;
                     }
                 }
