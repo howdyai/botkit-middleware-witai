@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/howdyai/botkit-middleware-witai#readme",
   "dependencies": {
-    "node-wit": "^2.0.0"
+    "node-wit": "^3.0.0"
   },
   "devDependencies": {
     "jscs": "^2.8.0"
