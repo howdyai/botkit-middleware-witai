@@ -28,14 +28,16 @@ Enable the middleware:
 ```
 
 var wit = require('botkit-middleware-witai')({
-    token: <my_wit_token>
+    token: <my_wit_token>,
+    intent_entity_name: <name of the entity user have defined as intent on Wit.ai, default is 'intent'>,
+    minimum_confidence: <minimum-confidence threshold for intent matching to succeed, default is 0.5>
 });
 
 controller.middleware.receive.use(wit.receive);
 
 controller.hears(['hello'],'direct_message',wit.hears,function(bot, message) {
-
-    // ...
+	
+    // ... message.entities will contain the entities identified by the wit.
 });
 ```
 
@@ -48,9 +50,7 @@ sent to your bot to be first sent to Wit.ai for processing. The
 results of the call to Wit.ai are added into the incoming message
 as `message.intents`, and will match the results of [this Wit.ai API call](https://wit.ai/docs/http/20141022#get-intent-via-text-link).
 
-Using the Wit hears middleware tells Botkit to look for Wit.ai intents
-information, and match using this information instead of the built in
-pattern matching function.
+Using the Wit hears middleware tells Botkit to look for Wit.ai entities and match using this information instead of the built in pattern matching function. User can specify the entity name which should be used as for intent matching. ( In new Wit intents are defined as user defined entity). By default the entity name which the middelware will look for as intent in with response is named 'intent'.
 
 Unless you want to directly access the information returned by wit,
 you can use this transparently by enabling bot the `receive` and `hears`
