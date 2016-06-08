@@ -2,7 +2,7 @@ var Logger = require('node-wit').Logger;
 var levels = require('node-wit').logLevels;
 var Wit = require('node-wit').Wit;
 
-
+//placeholder actions
 var actions = {
   say: function(sessionId, context, message, cb) {
     console.log(message);
@@ -49,7 +49,7 @@ module.exports = function(config) {
                         message.intents = data.entities[config.intent_entity_name];
                     }
                     next();
-                    }
+                }
             });
         }
 
