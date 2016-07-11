@@ -23,8 +23,9 @@ module.exports = function(config) {
                     next();
                 }
             });
+        } else {
+          next();
         }
-
     };
 
     middleware.hears = function(tests, message) {
