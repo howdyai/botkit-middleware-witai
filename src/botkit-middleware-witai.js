@@ -11,15 +11,15 @@ module.exports = function(config) {
     }
 
     var middleware = {};
+    const client = new Wit({accessToken: config.token});
 
     middleware.receive = function(bot, message, next) {
         if (message.text) {
-            wit.captureTextIntent(config.token, message.text, function(err, res) {
-                if (err) {
-                    next(err);
+            client.message(message.text, function(error, data) {
+                if (error) {
+                    next(error);
                 } else {
-                    console.log(JSON.stringify(res));
-                    message.intents = res.outcomes;
+                    message.entities = data.entities;
                     next();
                 }
             });
@@ -29,17 +29,17 @@ module.exports = function(config) {
 
     middleware.hears = function(tests, message) {
 
-        if (message.intents) {
-            for (var i = 0; i < message.intents.length; i++) {
+        if (message.entities && message.entities.intent) {
+            for (var i = 0; i < message.entities.intent.length; i++) {
                 for (var t = 0; t < tests.length; t++) {
-                    if (message.intents[i].intent == tests[t] &&
-                        message.intents[i].confidence >= config.minimum_confidence) {
+                    if (message.entities.intent[i].value == tests[t] &&
+                        message.entities.intent[i].confidence >= config.minimum_confidence) {
                         return true;
                     }
                 }
             }
         }
-
+        
         return false;
     };
 
