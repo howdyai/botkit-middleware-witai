@@ -24,6 +24,10 @@ module.exports = function(config) {
                 }
             });
         }
+        else if (message.attachments) {
+            message.intents = [];
+            next();
+        }
 
     };
 
