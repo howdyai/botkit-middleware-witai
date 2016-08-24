@@ -40,6 +40,9 @@ module.exports = function(config) {
                     next();
                 }
             });
+        } else if (message.attachments) {
+            message.intents = [];
+            next();
         } else {
             next();
         }
