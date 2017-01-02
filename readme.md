@@ -52,7 +52,7 @@ Using the Wit hears middleware tells Botkit to look for Wit.ai intents
 information, and match using this information instead of the built in
 pattern matching function.
 
-You must make a an `intent` entity in the understandings area of wit.ai
+You must make an `intent` entity in the understandings area of wit.ai
 and train it to register certain expressions.
 
 I.e "intent" -> "weather"
