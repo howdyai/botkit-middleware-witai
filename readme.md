@@ -46,7 +46,7 @@ For a full example [example_bot.js](example_bot.js)
 Using the Wit receive middleware with Botkit causes every message that is
 sent to your bot to be first sent to Wit.ai for processing. The
 results of the call to Wit.ai are added into the incoming message
-as `message.intents`, and will match the results of [this Wit.ai API call](https://wit.ai/docs/http/20141022#get-intent-via-text-link).
+as `message.entities`, and will match the results of [this Wit.ai API call](https://wit.ai/docs/http/20141022#get-intent-via-text-link).
 
 Using the Wit hears middleware tells Botkit to look for Wit.ai intents
 information, and match using this information instead of the built in
