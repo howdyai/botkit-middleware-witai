@@ -4,8 +4,7 @@
   "description": "A middleware for using Wit.ai in a Botkit-powered bot",
   "main": "src/botkit-middleware-witai.js",
   "scripts": {
-    "start": "node src/botkit-middleware-witai.js",
-    "pretest": "jscs ./"
+    "start": "node src/botkit-middleware-witai.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +24,5 @@
   "dependencies": {
     "node-wit": "^3.3.2"
   },
-  "devDependencies": {
-    "jscs": "^2.8.0"
-  }
+  "devDependencies": {}
 }
