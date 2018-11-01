@@ -15,7 +15,7 @@
     "wit.ai",
     "slack"
   ],
-  "author": "",
+  "author": "benbrown@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/howdyai/botkit-middleware-witai/issues"
