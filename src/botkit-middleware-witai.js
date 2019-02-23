@@ -34,7 +34,6 @@ module.exports = function (config) {
 
             client.message(message.text, {})
                 .then((data) => {
-                    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
                     message.entities = data.entities;
                     next();
                 }).catch((error) => {
@@ -54,9 +53,8 @@ module.exports = function (config) {
             let key = keys.shift();
             let entity = message.entities[key].shift();
             let confidence = entity.confidence;
-            let value = entity.value;
 
-            if (tests.find((value, index, array) => value == key) &&
+            if (tests.find((value) => value == key) &&
                 confidence >= config.minimum_confidence) {
                 return true;
             }
