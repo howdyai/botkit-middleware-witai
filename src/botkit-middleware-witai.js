@@ -35,6 +35,7 @@ module.exports = function (config) {
             client.message(message.text, {})
                 .then((data) => {
                     message.entities = data.entities;
+                    message.response = JSON.stringify(data);
                     next();
                 }).catch((error) => {
                     next(error);
