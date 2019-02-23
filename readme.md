@@ -36,6 +36,8 @@ controller.middleware.receive.use(wit.receive);
 controller.hears(['hello'],'direct_message',wit.hears,function(bot, message) {
 
     // ...
+    // message.text         (your message)
+    // message.response     (WIT's response)
 });
 ```
 
