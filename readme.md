@@ -33,9 +33,12 @@ var wit = require('botkit-middleware-witai')({
 
 controller.middleware.receive.use(wit.receive);
 
-controller.hears(['hello'],'direct_message',wit.hears,function(bot, message) {
+controller.hears(['wit_entity_1', 'wit_entity_2'],'direct_message',wit.hears,function(bot, message) {
 
     // ...
+    // message.text         (your message)
+    // message.response     (WIT's response)
+    bot.reply(message, message.text);
 });
 ```
 

@@ -2,20 +2,19 @@ var Wit = require('node-wit').Wit;
 
 // not used at the moment
 var actions = {
-    say: function(sessionId, context, message, cb) {
+    say: function (sessionId, context, message, cb) {
         console.log(message);
         cb();
     },
-    merge: function(sessionId, context, entities, message, cb) {
+    merge: function (sessionId, context, entities, message, cb) {
         cb(context);
     },
-    error: function(sessionId, context, error) {
+    error: function (sessionId, context, error) {
         console.log(error.message);
     }
 };
 
-module.exports = function(config) {
-
+module.exports = function (config) {
     if (!config || !config.token) {
         throw new Error('No wit.ai API token specified');
     }
@@ -24,22 +23,21 @@ module.exports = function(config) {
         config.minimum_confidence = 0.5;
     }
 
-    var client = new Wit(config.token, actions);
+    var client = new Wit({ accessToken: config.token, actions: actions });
 
     var middleware = {};
 
-    middleware.receive = function(bot, message, next) {
-        // Only parse messages of type text and mention the bot.
-        // Otherwise it would send every single message to wit (probably don't want that).
-        if (message.text && message.text.indexOf(bot.identity.id) > -1) {
-            client.message(message.text, function(error, data) {
-                if (error) {
-                    next(error);
-                } else {
+    middleware.receive = function (bot, message, next) {
+        // Only parse messages of type text
+        if (message.text) {
+            client.message(message.text, {})
+                .then((data) => {
                     message.entities = data.entities;
+                    message.response = JSON.stringify(data);
                     next();
-                }
-            });
+                }).catch((error) => {
+                    next(error);
+                });
         } else if (message.attachments) {
             message.intents = [];
             next();
@@ -48,18 +46,18 @@ module.exports = function(config) {
         }
     };
 
-    middleware.hears = function(tests, message) {
-        if (message.entities && message.entities.intent) {
-            for (var i = 0; i < message.entities.intent.length; i++) {
-                for (var t = 0; t < tests.length; t++) {
-                    if (message.entities.intent[i].value == tests[t] &&
-                        message.entities.intent[i].confidence >= config.minimum_confidence) {
-                        return true;
-                    }
-                }
+    middleware.hears = function (tests, message) {
+        let keys = Object.keys(message.entities);
+        while (keys.length > 0) {
+            let key = keys.shift();
+            let entity = message.entities[key].shift();
+            let confidence = entity.confidence;
+
+            if (tests.find((value) => value == key) &&
+                confidence >= config.minimum_confidence) {
+                return true;
             }
         }
-
         return false;
     };
 
