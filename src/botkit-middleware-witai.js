@@ -30,8 +30,6 @@ module.exports = function (config) {
     middleware.receive = function (bot, message, next) {
         // Only parse messages of type text
         if (message.text) {
-            console.log("sender" + message.text);
-
             client.message(message.text, {})
                 .then((data) => {
                     message.entities = data.entities;
