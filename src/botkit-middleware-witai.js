@@ -28,10 +28,8 @@ module.exports = function (config) {
     var middleware = {};
 
     middleware.receive = function (bot, message, next) {
-        // console.log(message);
-        // Only parse messages of type text and mention the bot.
-        // Otherwise it would send every single message to wit (probably don't want that).
-        if (message.text) {//&& message.text.indexOf(bot.identity.id) > -1) {
+        // Only parse messages of type text
+        if (message.text) {
             console.log("sender" + message.text);
 
             client.message(message.text, {})
@@ -39,9 +37,9 @@ module.exports = function (config) {
                     console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
                     message.entities = data.entities;
                     next();
-                })
-                .catch(console.error);
-
+                }).catch((error) => {
+                    next(error);
+                });
         } else if (message.attachments) {
             message.intents = [];
             next();
@@ -51,30 +49,19 @@ module.exports = function (config) {
     };
 
     middleware.hears = function (tests, message) {
-        console.log(message.entities);
-        console.log(Object.keys(message.entities));
-        
-        var res = false;
-        Object.keys(message.entities).forEach(element => {
-            console.log(element);
-            if (tests.find((value, index, array) => value == element)) {
-                console.log(true);
-                res = true;
+        let keys = Object.keys(message.entities);
+        while (keys.length > 0) {
+            let key = keys.shift();
+            let entity = message.entities[key].shift();
+            let confidence = entity.confidence;
+            let value = entity.value;
+
+            if (tests.find((value, index, array) => value == key) &&
+                confidence >= config.minimum_confidence) {
+                return true;
             }
-        });
-
-        // if (message.entities && message.entities.intent) {
-        //     for (var i = 0; i < message.entities.intent.length; i++) {
-        //         for (var t = 0; t < tests.length; t++) {
-        //             if (message.entities.intent[i].value == tests[t] &&
-        //                 message.entities.intent[i].confidence >= config.minimum_confidence) {
-        //                 return true;
-        //             }
-        //         }
-        //     }
-        // }
-
-        return res;
+        }
+        return false;
     };
 
     return middleware;
