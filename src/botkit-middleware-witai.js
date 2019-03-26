@@ -1,19 +1,5 @@
 var Wit = require('node-wit').Wit;
 
-// not used at the moment
-var actions = {
-    say: function(sessionId, context, message, cb) {
-        console.log(message);
-        cb();
-    },
-    merge: function(sessionId, context, entities, message, cb) {
-        cb(context);
-    },
-    error: function(sessionId, context, error) {
-        console.log(error.message);
-    }
-};
-
 module.exports = function(config) {
 
     if (!config || !config.token) {
@@ -24,22 +10,21 @@ module.exports = function(config) {
         config.minimum_confidence = 0.5;
     }
 
-    var client = new Wit(config.token, actions);
+    var client = new Wit({accessToken:config.token});
 
     var middleware = {};
 
     middleware.receive = function(bot, message, next) {
-        // Only parse messages of type text and mention the bot.
+        // Only parse messages of type text, give the option to use a command for wit requests
         // Otherwise it would send every single message to wit (probably don't want that).
-        if (message.text && message.text.indexOf(bot.identity.id) > -1) {
-            client.message(message.text, function(error, data) {
-                if (error) {
-                    next(error);
-                } else {
-                    message.entities = data.entities;
-                    next();
-                }
-            });
+        if (message.text && (!config.command||message.text.indexOf(config.command)>-1)) {
+            client.message(message.text, {})
+            .then((data) => {
+                message.entities = data.entities;
+             console.log(JSON.stringify(data));
+             next();
+            })
+            .catch(console.error);           
         } else if (message.attachments) {
             message.intents = [];
             next();
