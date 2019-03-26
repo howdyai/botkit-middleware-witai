@@ -10,7 +10,7 @@ module.exports = function(config) {
         config.minimum_confidence = 0.5;
     }
 
-    var client = new Wit({accessToken:config.token,apiVersion:config.apiVersion});
+    var client = new Wit({accessToken:config.token,apiVersion:config.api_version});
 
     var middleware = {};
 

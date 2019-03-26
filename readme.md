@@ -30,12 +30,13 @@ Enable the middleware:
 var wit = require('botkit-middleware-witai')({
     token: <my_wit_token>
     command: <my_wit_command> //use this option to pass only requests with <my_wit_command> to wit
-    apiVersion: <my_wit_api_version> //use this option to specify the api version of wit to use, leave blank to use the latest version.
+    api_version: <my_wit_api_version> //use this option to specify the api version of wit to use, don't specify to use the latest version.
+    minimum_confidence: <minimum_confidence> //use this option to specify the minimal confidence to 
 });
 
 controller.middleware.receive.use(wit.receive);
 
-controller.hears(['hello'],'direct_message',wit.hears,function(bot, message) {
+controller.hears(['wit_entity_1','wit_entity_2'],'direct_message',wit.hears,function(bot, message) {
 
     // ...
 });
