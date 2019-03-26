@@ -1,6 +1,6 @@
 {
   "name": "botkit-middleware-witai",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A middleware for using Wit.ai in a Botkit-powered bot",
   "main": "src/botkit-middleware-witai.js",
   "scripts": {
