@@ -31,7 +31,7 @@ var wit = require('botkit-middleware-witai')({
     token: <my_wit_token>
     command: <my_wit_command> //use this option to pass only requests with <my_wit_command> to wit
     api_version: <my_wit_api_version> //use this option to specify the api version of wit to use, don't specify to use the latest version.
-    minimum_confidence: <minimum_confidence> //use this option to specify the minimal confidence to 
+    minimum_confidence: <minimum_confidence> //use this option to specify the minimal confidence to accept the matched intent.
 });
 
 controller.middleware.receive.use(wit.receive);
